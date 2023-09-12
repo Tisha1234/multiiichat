@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "399248468369",
+    "project_id": "multiichat",
+    "storage_bucket": "multiichat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399248468369:android:f0fe7d53cff4558a915230",
+        "android_client_info": {
+          "package_name": "com.multiiichat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399248468369-21qh4jmoquvsk2umm1mps354aqgau0vu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multiiichat",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "399248468369-5a3u9mmc2labcbmeqn1f32i4e37qa0g8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0uBEWNUa04C7UQL11nvfthQ9QkAs0I-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399248468369-5a3u9mmc2labcbmeqn1f32i4e37qa0g8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
