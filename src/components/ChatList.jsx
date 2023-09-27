@@ -1,37 +1,46 @@
-import {View, Text, Image, StyleSheet, TouchableOpacity,ActivityIndicator} from 'react-native';
+import {View, Text, Image, StyleSheet,RefreshControl, TouchableOpacity,ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Colors} from '../themes/colors';
 import VectorIcon from '../utils/VectorIcon';
-import {useNavigation,useFocusEffect} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 
 
 const ChatList = ({userId}) => {
   const navigation = useNavigation();
   const [chatList, setChatList] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
 
   const fetchData = async () => {
-      getChatList()
-      .then(chatData => {
+    setRefreshing(true);
+
+      // getChatList()
+      // .then(chatData => {
+      //   setChatList(chatData);
+      //   console.log('check');
+      // })
+      // .catch(error => {
+      //   console.log('error :', error);
+      // })
+
+      try {
+        const chatData = await getChatList();
         setChatList(chatData);
-        console.log('check');
-      })
-      .catch(error => {
-        console.log('error :', error);
-      })
+      } catch (error) {
+        console.log('Error:', error);
+      } finally {
+        setRefreshing(false); 
+      }
   };
 
   useEffect(() => {
     fetchData();
   }, [userId]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      console.log('refreshing....')
-      fetchData();
-    }, [])
-  );
+  const onRefresh = () => {
+    fetchData(); 
+  };
 
   const getChatList = async () => {
     const userRef = firestore().collection('users').doc(userId);
@@ -89,7 +98,15 @@ const ChatList = ({userId}) => {
   };
 
   return (
-    <>
+    <ScrollView
+    contentContainerStyle={styles.container1}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh} // Call onRefresh when "Pull to Refresh" is triggered
+        />
+      }
+    >
       {chatList.map(item => (
         <View key={item.otherUser?.id}>
           <TouchableOpacity
@@ -125,11 +142,15 @@ const ChatList = ({userId}) => {
           </TouchableOpacity>
         </View>
       ))}
-    </>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container1: {
+    flexGrow: 1, 
+    justifyContent: 'flex-start', 
+  },
   profileImg: {
     borderRadius: 50,
     height: 40,

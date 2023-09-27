@@ -7,10 +7,10 @@ export const TabBarData = [
     route: ChatListScreen,
     name: 'Chats',
   },
-  {
-    id: 2,
-    route: StatusListScreen,
-    name: 'Status',
-  },
+  // {
+  //   id: 2,
+  //   route: StatusListScreen,
+  //   name: 'Status',
+  // },
   
 ];

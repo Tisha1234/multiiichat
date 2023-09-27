@@ -64,6 +64,7 @@ const renderFileUri = () => {
 
     if (!userName || !profilePicture) {
       console.log('Please enter a name and select a profile picture');
+      Alert.alert('Please enter a name and select a profile picture');
       return;
     }
 

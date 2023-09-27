@@ -4,12 +4,19 @@ import Background from '../utils/background';
 import Btn from '../utils/btn';
 import {Colors} from '../themes/colors';
 import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setEmail('');
+      setPassword('');
+    }, [])
+  );
 
   const onRegister = async () => {
     if(email=='' || password==''){
@@ -54,18 +61,22 @@ const SignUpScreen = () => {
 
             <TextInput
             placeholder="Email"
-            style={styles.inputBox}
+            style={[styles.inputBox, { color: Colors.lgray }]}
+            placeholderTextColor= {Colors.lgray}
             value={email}
             onChangeText={setEmail}
           />
           <TextInput
             placeholder="Password"
-            style={styles.inputBox}
+            style={[styles.inputBox, { color: Colors.lgray }]}
+            placeholderTextColor= {Colors.lgray}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
           />
+          <View style={styles.buttonWrapper}>
           <Btn textColor='white' bgColor={Colors.lgray} btnLabel="SignUp" Press={() => onRegister()} />
+          </View>
 
           <View style={styles.signupContainer}>
             <Text style={styles.signupText}>Already have a account? </Text>
@@ -82,7 +93,7 @@ const SignUpScreen = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    width: 440,
+    width: "100%",
   },
   title: {
     color: 'white',
@@ -93,7 +104,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: 'white',
     height: 550,
-    width: 450,
+    width:"100%",
     borderTopLeftRadius: 150,
     borderBottomRightRadius: 200,
     paddingTop: 100,
@@ -113,11 +124,11 @@ const styles = StyleSheet.create({
   inputBox: {
     borderWidth: 1,
     borderColor: 'grey',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    width: '70%',
+    width: '80%',
     marginTop: 20,
-    marginRight: 50,
+    marginHorizontal: 30,
   },
   errorText: {
     color: 'red',
@@ -130,6 +141,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   signupText: {
+    color:Colors.lgray,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -137,6 +149,12 @@ const styles = StyleSheet.create({
     color: Colors.lblue,
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  buttonWrapper: {
+    flexDirection: 'row', // Ensure the button is centered horizontally
+    justifyContent: 'center',
+    marginTop: 20, // Adjust the margin as needed
+    marginHorizontal: 20, // 20dp spacing on both sides of the button
   },
 });
 

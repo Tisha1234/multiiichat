@@ -23,15 +23,17 @@ const ForgotPasswordScreen = () => {
         <ImageBackground style={styles.imgbackg} source={require('../assets/card.jpg')}>
         <View style={{flex: 1, alignItems: 'center'}}>
       {resetSent ? (
-        <Text style={{color:Colors.black,fontSize:25}}>Password reset email sent. Check your inbox.You can login once you reset your password.</Text>
+        <Text style={{color:Colors.black,fontSize:25,margin:15}}>Password reset email sent. Check your inbox.You can login once you reset your password.</Text>
       ) : (
         <>
         <Text style={{padding:40,fontSize:20,color:Colors.black}}>Enter your email address to reset password..</Text>
           <TextInput
             placeholder="Email"
+            style={[styles.input, { color: Colors.lgray }]}
+            placeholderTextColor={Colors.lgray}
             value={email}
             onChangeText={setEmail}
-            style={styles.input}
+            // style={styles.input}
           />
           <Button title="Send Reset Email" onPress={sendPasswordResetEmail} />
         </>

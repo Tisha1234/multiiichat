@@ -17,15 +17,25 @@ const Home = () => {
 
   return (
     <Background>
-    <View style={styles.container}>
-      <Text style={{ color: 'white', fontSize: 64 }}>Let's start</Text>
-      <Text style={{ color: 'white', fontSize: 64, marginBottom: 40 }}>Chatting..</Text>
-      <Text style={{ color: 'white', fontSize: 40, marginBottom: 20 }}>with MultiiChat...</Text>
-      <View style={styles.buttonContainer}>
-      <Btn bgColor={Colors.lblue} textColor='white' btnLabel="Login" Press={() => onLogin()} />
-      <Btn bgColor='white' textColor={Colors.lgray} btnLabel="Signup" Press={() => onsignin()} />
+      <View style={styles.container}>
+        <Text style={styles.title}>Let's start</Text>
+        <Text style={styles.subtitle}>Chatting..</Text>
+        <Text style={styles.subtext}>with MultiiChat...</Text>
+        <View style={styles.buttonContainer}>
+          <Btn
+            bgColor={Colors.lblue}
+            textColor="white"
+            btnLabel="Login"
+            Press={() => onLogin()}
+          />
+          <Btn
+            bgColor="white"
+            textColor={Colors.lgray}
+            btnLabel="Signup"
+            Press={() => onsignin()}
+          />
+        </View>
       </View>
-    </View>
     </Background>
   );
 }
@@ -37,8 +47,24 @@ const styles = StyleSheet.create({
       alignItems: 'center',     // Center horizontally
       marginVertical: 25,
     },
+    title: {
+      color: 'white',
+      fontSize: 64,
+      marginBottom: 40,
+    },
+    subtitle: {
+      color: 'white',
+      fontSize: 64,
+      marginBottom:15
+    },
+    subtext: {
+      color: 'white',
+      fontSize: 40,
+      marginBottom: 20,
+    },
     buttonContainer: {
-      marginTop: 190,
+      marginTop: 40,
+      marginBottom:30 
     },
   });
 

@@ -1,16 +1,24 @@
 import React,{useState} from 'react';
-import {View, Text, TouchableOpacity,  TextInput, StyleSheet, Alert} from 'react-native';
+import {View, Text, TouchableOpacity,  TextInput, StyleSheet, Alert,KeyboardAvoidingView, ScrollView} from 'react-native';
 import Background from '../utils/background';
 import Btn from '../utils/btn';
 import {Colors} from '../themes/colors';
 import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation ,useFocusEffect} from '@react-navigation/native';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setEmail('');
+      setPassword('');
+      setError('');
+    }, [])
+  );
 
   const handleSignIn = () => {
     if(email=='' || password==''){
@@ -25,7 +33,9 @@ const SignInScreen = () => {
       })
       .catch((error) => {
         setError('Sign-in failed. Check your email and password.');
-        console.error('Sign-in Error:', error);
+        //Alert.alert('Sign-in Error:',error);
+        //console.error('Sign-in Error:', error);
+        //return;
       });
   };
 
@@ -43,24 +53,28 @@ const SignInScreen = () => {
 
             <TextInput
             placeholder="Email"
-            style={styles.inputBox}
+            placeholderTextColor={Colors.lgray}
+            style={[styles.inputBox, { color: Colors.lgray }]}
             value={email}
             onChangeText={setEmail}
-          />
+            />
           <TextInput
             placeholder="Password"
-            style={styles.inputBox}
+            placeholderTextColor= {Colors.lgray}
+            style={[styles.inputBox, { color: Colors.lgray }]}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
-          />
+            />
           <View style={styles.signupContainer}>
             <Text style={styles.signupText}>Don't remember password? </Text>
             <TouchableOpacity onPress={() => navigation.navigate('ResetPass')}>
               <Text style={styles.signupLink}>click here</Text>
             </TouchableOpacity>
           </View>
-          <Btn textColor='white' bgColor={Colors.lgray} btnLabel="Login" Press={() => handleSignIn()} />
+          <View style={styles.buttonWrapper}>
+            <Btn textColor='white' bgColor={Colors.lgray} btnLabel="Login" Press={() => handleSignIn()} />
+          </View>
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <View style={styles.signupContainer}>
@@ -77,8 +91,10 @@ const SignInScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: 'center',
-    width: 440,
+    alignItems: 'center',
+    width: "100%",
   },
   title: {
     color: 'white',
@@ -89,7 +105,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: 'white',
     height: 550,
-    width: 450,
+    width:"100%",
     borderTopLeftRadius: 150,
     borderBottomRightRadius: 200,
     paddingTop: 100,
@@ -109,11 +125,11 @@ const styles = StyleSheet.create({
   inputBox: {
     borderWidth: 1,
     borderColor: 'grey',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    width: '70%',
+    width: '80%',
     marginTop: 20,
-    marginRight: 50,
+    marginHorizontal: 30,
   },
   errorText: {
     color: 'red',
@@ -128,11 +144,18 @@ const styles = StyleSheet.create({
   signupText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color:Colors.lgray
   },
   signupLink: {
     color: Colors.lblue,
     fontWeight: 'bold',
     fontSize: 17,
+  },
+  buttonWrapper: {
+    flexDirection: 'row', // Ensure the button is centered horizontally
+    justifyContent: 'center',
+    marginTop: 10, // Adjust the margin as needed
+    marginHorizontal: 20, // 20dp spacing on both sides of the button
   },
 });
 

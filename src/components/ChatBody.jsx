@@ -63,8 +63,8 @@ const ChatBody = ({chatId,userId}) => {
         ref={scrollViewRef}
         onContentSizeChange={scrollToBottom}
         showsVerticalScrollIndicator={false}>
-        {messages.map(item => (
-          <>
+        {messages.map((item, index) => (
+          <React.Fragment key={index}>
             {item.sender === userId ? (
               <UserMessageView
                 message={item.body}
@@ -76,7 +76,7 @@ const ChatBody = ({chatId,userId}) => {
               time={item.timestamp?.toDate().toDateString()}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </ScrollView>
       <View style={styles.scrollIcon}>
